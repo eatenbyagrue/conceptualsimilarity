@@ -1,0 +1,76 @@
+%!TEX program = xelatex
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[a4paper,lmargin={3.5cm},rmargin={3.5cm}, tmargin={2.5cm},bmargin = {2.5cm}]{geometry}
+\usepackage{setspace}
+\usepackage{indentfirst}
+\onehalfspacing
+\usepackage{enumitem}
+\usepackage{amsmath, amssymb}
+\usepackage[backend=biber, authordate, ibidtracker=context]{biblatex-chicago}
+\usepackage{titlesec}
+
+\addbibresource{conceptsimilarity.bib}
+
+\usepackage{fontspec}
+\newfontfamily\osfamily{Latin Modern Roman}
+%\newfontfamily\osfamily{Old Standard TT}
+
+\renewcommand{\i}[1]{\emph{#1}}
+\newcommand{\given}[1][]{\:#1\vert\:}
+
+\titleformat{\section}{\Large\bfseries\osfamily}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries\osfamily}{\thesubsection}{1em}{}
+
+\title{\osfamily\textbf{Meaning as Conceptual Role}\\ in a Spatial Interpretation}
+\author{Class Paper for Logic and Probability \\ Prof.\ Dr.\ Hannes Leitgeb \\ SS2017, LMU Munich \\ Conrad Friedrich \\ \texttt{conradfriedrich@posteo.net}}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+\subsection{Field's Notion of Conceptual Role}
+\subsection{Gärdenfors' Conceptual Spaces}
+\subsection{Word Space Models in Computational Linguistics}
+
+Its seems like a very natural idea: The geometric interpretation of mental representations provides a promising attempt at an explication of meaning. Geometric approaches have been extraordinarily popular in Computational Linguistics and Natural Language Processing. There, the geometric interpretation or metaphor has a lot of different realisations used for a wide variety of tasks. Quite common is the statistical analysis of huge amounts of data in text form, assigning quantifiable features to linguistic expressions in this data. The goal is to find some statistical patterns in the texts which indicate interesting properties of the linguistic expressions, for example automated recognition of the syntactic role of the expression, or which expressions are named entities, or whether the author of the texts talks about her subject favourably or dismissively. All these tasks have been met with quite the success, suggesting that there is a tangible connection of structural information represented geometrically and what might be generously called the \i{content} of the data. The connection to word meaning is almost straightforward, then, if one takes for example Gärdenfors' instrumentalist position [Citation needed]. Employing a Wittgensteinian functionalist picture of meaning as language \i{use}, the linguist is enabled to research about meaning with computational methods.
+
+What should count as a feature, then, is not trivially determined. Certain distributional properties of expressions present themselves (e.g.\ the frequency of occurring in documents), and it is a feasible approach to use the context of an expression to develop the quantified features. What does that amount to, in practice? Words are counted in texts, and if words are close to one another often, the counts go up. For each expression, this creates something like a co-occurrence profile, which serves as the basis for the spatial representation. Proximity in this representation is then used as an indicator of closeness in meaning. But mere co-occurrence is only a weak indicator for the relation of expressions, their total evidential relations are much more telling. Hence I propose in the following the model similarity of conceptual role through a spatial interpretation of evidential relations between linguistic expressions. 
+
+It's easily answered why computational linguists aren't drawn to the idea of creating a spatial dimensions using conditional probabilities: Since the statistical approaches mentioned earlier use real data and texts, it's safe to say the work is empirical in nature. There is no actual agent's credence function over a natural language to work with, of course, which renders this angle a lot less favorable to the computational linguist. There are, however, theoretical implications which must not necessarily prove useful in the sterilized and idealised philosophical context, on the contrary, it may even enrich the discussion. The practical usefulness of the geometric interpretation is, in my opinion, a hint to its potential theoretical fruitfulness. In other words, I believe that the idealising assumptions made here may take away from the empirical relevance of the present discussion but do not limit any philosophical usefulness.
+
+\subsection{Meaning}
+
+The accounts all say something about meaning, and while I try to avoid to take a stance on the issue, something regarding the nature of meaning has to be said: 
+
+Field seems to adhere to a very traditional extensional explication of meaning, in the sense that the truth conditions for sentences at the actual world seem to play a crucial role in what he calls referential meaning. That is only part of his account, though, and the conceptual role part hints at a more cognitivist aspect of meaning. Conceptual role, as described here, supervenes after all on subjective probabilities, and those are idealisations of mental states. 
+
+Gärdenfors is a proponent of cognitivist semantics, where linguistic expressions refer to something in the mind of the speaker \parencite[154]{gärdenfors2004conceptual}. The association with an external world is then just a matter of pragmatics, and a successfully interacting agent has an appropriate conceptual structure. 
+
+The account used in computational linguistics is mostly functionalist, limiting the meaning of expressions solely to their communicative role. 
+\section{Conceptual Similarity}
+
+With this setup, it seems a small mental leap to the account of conceptual similarity proposed in this paper. 
+
+Presupposing subjective probabilities over a language, Field captures sameness in conceptual role (and \i{a fortiori} meaning) of two sentences through comparing their probabilities given each sentence of the language. Yet, the result is only a simple binary categorization. Either two sentences have the exact same conceptual role or they don't. While I find the idea of evidential relations determining the conceptual role of a linguistic expression to be very engaging, it leaves much to be desired. There may be expressions with the same conceptual role in a language, that is for sure, but what about all the other expressions? Aren't two sentences with \i{almost} the same conceptual role interesting to investigate? What about whole clusters of expressions? What about the comparison of conceptual roles of sentences for between speakers?
+
+I argue that there is rather interesting information of this type contained in the presupposed subjective probabilities. In this paper, I want to present the general idea, make it somewhat precise and sketch directions for future research.
+
+Suppose a finite propositional language $\mathcal{L}$ and an agent's subjective probability function $cr$ on that language. A spatial representation of the conceptual role of the sentences of the language can be achieved by assigning \i{sentences} to dimensions in this space. Let's look at a sentence $X$. To determine its location in a spatial representation, measure the \i{evidential relation} of a sentence $C_i$ to $X$ for each dimension, that is, each $i$, where $i$ indexes all sentences of the $\mathcal{L}$. 
+
+A plausible assumption I adopt from Field is that the evidential relation is captured at least partly by the conditional probability $\text{Pr}(X \given C_i)$, which consequently takes center stage here\footnote{Where defined.}. To express the evidential relation in a single number isn't trivial or uncontested, and I will return to this issue, but let's suppose there is such a measure $\mathfrak{c}(X,C_i)$ for each $i$. The location of $X$ in the spatial interpretation is then fully determined by the tupel $(\mathfrak{c}({X, C_1}),\dots, \mathfrak{c}(X, C_n))$, where $n$ is the number of sentences in $\mathcal{L}$. 
+
+
+
+\subsection{Order by Conceptual Similarity}
+\subsection{A Live Example: The Lottery}
+\section{Linguistic Entities}
+\section{Inter-Personal Similarity of Conceptual Role}
+\section{Conceptual Learning}
+\section{Conclusions and Future Research}
+
+\nocite{*}
+\printbibliography{}
+\end{document}
