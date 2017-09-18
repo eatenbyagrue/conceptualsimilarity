@@ -6,10 +6,10 @@
 \usepackage{indentfirst}
 \onehalfspacing{}
 \usepackage{enumitem}
+\usepackage{graphicx}
 \usepackage{amsmath, amssymb}
 \usepackage[backend=biber, authordate, ibidtracker=context]{biblatex-chicago}
 \usepackage{titlesec}
-
 \addbibresource{conceptsimilarity.bib}
 
 \usepackage{fontspec}
@@ -28,20 +28,23 @@
 \begin{document}
 
 \maketitle
+\abstract{Derpiderp}
+\thispagestyle{empty}
+\newpage
 \tableofcontents
+\newpage
 \section{Introduction}
 
 \subsection{Field's Notion of Conceptual Role}
 \subsection{Gärdenfors' Conceptual Spaces}
 \subsection{Word Space Models in Computational Linguistics}
-
 Its seems like a very natural idea: The geometric interpretation of mental representations provides a promising attempt at an explication of meaning. Geometric approaches have been extraordinarily popular in Computational Linguistics and Natural Language Processing. There, the geometric interpretation or metaphor has a lot of different realisations used for a wide variety of tasks. Quite common is the statistical analysis of huge amounts of data in text form, assigning quantifiable features to linguistic expressions in this data. The goal is to find some statistical patterns in the texts which indicate interesting properties of the linguistic expressions, for example automated recognition of the syntactic role of the expression, or which expressions are named entities, or whether the author of the texts talks about her subject favourably or dismissively. All these tasks have been met with quite the success, suggesting that there is a tangible connection of structural information represented geometrically and what might be generously called the \i{content} of the data. The connection to word meaning is almost straightforward, then, if one takes for example Gärdenfors' instrumentalist position [Citation needed]. Employing a Wittgensteinian functionalist picture of meaning as language \i{use}, the linguist is enabled to research about meaning with computational methods.
 
 What should count as a feature, then, is not trivially determined. Certain distributional properties of expressions present themselves (e.g.\ the frequency of occurring in documents), and it is a feasible approach to use the context of an expression to develop the quantified features. What does that amount to, in practice? Words are counted in texts, and if words are close to one another often, the counts go up. For each expression, this creates something like a co-occurrence profile, which serves as the basis for the spatial representation. Proximity in this representation is then used as an indicator of closeness in meaning. But mere co-occurrence is only a weak indicator for the relation of expressions, their total evidential relations are much more telling. Hence I propose in the following the model similarity of conceptual role through a spatial interpretation of evidential relations between linguistic expressions. 
 
 It's easily answered why computational linguists aren't drawn to the idea of creating a spatial dimensions using conditional probabilities: Since the statistical approaches mentioned earlier use real data and texts, it's safe to say the work is empirical in nature. There is no actual agent's credence function over a natural language to work with, of course, which renders this angle a lot less favorable to the computational linguist. There are, however, theoretical implications which must not necessarily prove useful in the sterilized and idealised philosophical context, on the contrary, it may even enrich the discussion. The practical usefulness of the geometric interpretation is, in my opinion, a hint to its potential theoretical fruitfulness. In other words, I believe that the idealising assumptions made here may take away from the empirical relevance of the present discussion but do not limit any philosophical usefulness.
 
-\subsection{Meaning}
+\subsection{And What That Has to Do With Meaning}
 
 The accounts all say something about meaning, and while I try to avoid to take a stance on the issue, something regarding the nature of meaning has to be said: 
 
@@ -52,9 +55,9 @@ Gärdenfors is a proponent of cognitivist semantics, where linguistic expression
 The account used in computational linguistics is mostly functionalist, limiting the meaning of expressions solely to their communicative role. 
 \section{Conceptual Similarity}
 
-With this setup, it seems a small mental leap to the account of conceptual similarity proposed in this paper. 
+With this setup, it's a small mental leap to the account of conceptual similarity proposed in this paper. 
 
-Perhaps I have to preface this by stating that this is not intended to be carried out in practice. I may be silly. You have been warned! (I will address the practicality of it later on)
+Speaking loosely, two sentences are similar in conceptual role if they agree in subjective probability conditional on most sentences, bar a few outliers, or if they mostly agree conditional on all sentences. To make things precise it would be nice to have a \emph{distance measure} on conceptual role of sentences (and, possibly, other linguistic entities) relative to a given subjective probability function, not unlike the accuracy measures employed in justification strategies for Bayesianism.\footnote{cf. \textcite{Leitgeb2010}.}
 
 Presupposing subjective probabilities over a language, Field captures sameness in conceptual role (and \i{a fortiori} meaning) of two sentences through comparing their probabilities given each sentence of the language. Yet, the result is only a simple binary categorization. Either two sentences have the exact same conceptual role or they don't. While I find the idea of evidential relations determining the conceptual role of a linguistic expression to be very engaging, it leaves much to be desired. There may be expressions with the same conceptual role in a language, that is for sure, but what about all the other expressions? Aren't two sentences with \i{almost} the same conceptual role interesting to investigate? What about whole clusters of expressions? What about the comparison of conceptual roles of sentences for between speakers?
 
@@ -62,15 +65,15 @@ I argue that there is rather interesting information of this type contained in t
 
 Suppose a finite propositional language $\mathcal{L}$ with set of sentences $S$ and an agent's subjective probability function $\Pr$ on that language. A spatial representation of the conceptual role of the sentences of the language can be achieved by assigning \i{sentences} to dimensions in a space. Let $V$ be an $n$-dimensional vector space over $\mathbb{R}$, where $n$ is the number of sentences in $S$. Let's look at a sentence $p \in S$. To determine its vector in $V$, we measure the \i{evidential relation} of a sentence $c_i$ to $p$ for each dimension, that is, each $c_i \in S$. 
 
-A plausible assumption we adopt from Field is that the evidential relation is captured at least partly by the conditional probability $\Pr(p \given c_i)$, which consequently takes center stage here\footnote{Where defined. Field employs Popper functions in his paper, but since this breaks with the orthodoxy and they mostly prove useful when treating infinite sets \parencite[1352]{Leitgeb2013-LEIRBS}, I assume a classically axiomatized probability function.}. To express the evidential relation in a single number isn't trivial or uncontested, and we will return to this issue, but let's suppose there is such a measure $\mathfrak{c}: S \times S \rightarrow \left[-1,1\right]$. The location of $p$ in the spatial interpretation is then fully determined by $\mathbf{p}~=~(\mathfrak{c}({p, c_1}),\dots, \mathfrak{c}(p, c_n)) \in V$.
+A plausible assumption we adopt from Field is that the evidential relation is captured at least partly by the conditional probability $\Pr(p \given c_i)$, which consequently takes center stage here\footnote{Where defined. Field employs Popper functions in his paper, but since this breaks with the orthodoxy and they mostly prove useful when treating infinite sets \parencite[1352]{Leitgeb2013-LEIRBS}, I assume a classically axiomatised probability function.}. To express the evidential relation in a single number isn't trivial or uncontested, and we will return to this issue, but let's suppose there is such a measure $\mathfrak{c}: S \times S \rightarrow \left[-1,1\right]$. The location of $p$ in the spatial interpretation is then fully determined by $\mathbf{p}~=~(\mathfrak{c}({p, c_1}),\dots, \mathfrak{c}(p, c_n)) \in V$.
 
 To say something about the relation of the conceptual role of two different sentences $p$ and $q \in S$, we assume $\mathbf{p}$ and $\mathbf{q} \in V$ and introduce a second measure $\mathfrak{d}: V \times V \rightarrow \mathbb{R}^+$ which is intended to measure the distance between $\mathbf{p}$ and $\mathbf{q}$. This can be achieved by letting $\mathfrak{d}(\mathbf{p}, \mathbf{q})~=~\lVert \mathbf{p} - \mathbf{q} \rVert$ where 
 \[
-    \lVert \mathbf{p}-\mathbf{q} \rVert = {\left( \sum_{k=1}^n {(p_k-q_k)}^2 \right)}^{1/2} 
+    \lVert \mathbf{p}-\mathbf{q} \rVert = {\left( \sum_{k=1}^n {(p_k-q_k)}^2 \right)}^{1/2}, 
 \]
-which is just the euclidian distance. 
+which is just the euclidean distance. 
 
-The \i{similarity} between two sentences is then just a function that decreases as the distance increases and has a maximum when the distance is minimal, for example: $s = e^{cd}$, with a skalar $c$, and $d$ the distance of two vectors in $V$. In general, summing up, we have a function $\mathfrak{s}$ that assigns a similarity measure to pairs of sentences given a language and a subjective probability function, $\mathfrak{s}: S \times S \rightarrow \mathbb{R}^+$.  
+The \i{similarity} between two sentences is then just a function that decreases as the distance increases and has a maximum when the distance is minimal, for example: $s = e^{cd}$, with a scalar $c$, and $d$ the distance of two vectors in $V$. In general, summing up, we have a function $\mathfrak{s}$ that assigns a similarity measure to pairs of sentences given a language and a subjective probability function, $\mathfrak{s}: S \times S \rightarrow \mathbb{R}^+$. We require a monotonically decreasing, continuous function. 
 
 What is won with this precisification? We now have a precise notion of the spatial interpretation of similarity in conceptual role given an agent's subjective probability function. If we additionally buy into Field's premise of meaning being mainly constituted by conceptual role, the spatial interpretation can tell a lot about the meaning of linguistic expressions. 
 
@@ -78,18 +81,52 @@ For example:
 
 \subsection{Order by Conceptual Similarity}
 
-Let's fix a sentence $p$. The similarity measure induces relations on $S$ of $\mathcal{L}$ with interesting properties. Perhaps quite obviously, we can define 
+Let's fix a sentence $p$. The spatial structure of the similarity measure induces relations on $S$ of $\mathcal{L}$ with interesting properties. Perhaps quite obviously, we can define 
 \[
     q \leqslant_p r \Leftrightarrow s(p,q) \leqslant s(p,r)
 \]
-for any two sentences $q$ and $r$, inducing an ordering on $\mathcal{L}$ that is \i{reflexive}, \i{transitive} but \i{not} antisymmetric since two sentences $q$ and $r$ may be equidistant to p, written $q \leqslant_p r$ and $r \leqslant_p q$, while $q \not = r$. Less formally, this relation orders all sentences by conceptual similartiy to $p$. Naturally, the most similar sentence to $p$ is $p$ itself, so it holds that for all sentences ${x \in \mathcal{L}}$, ${x\leqslant_p p}$.
+for any two sentences $q$ and $r$, inducing an ordering on $\mathcal{L}$ that is \i{reflexive}, \i{transitive} but \i{not} antisymmetric since two sentences $q$ and $r$ may be equidistant to p, written $q \leqslant_p r$ and $r \leqslant_p q$, while $q \not = r$. Less formally, this relation orders all sentences by conceptual similarity to $p$. Naturally, the most similar sentence to $p$ is $p$ itself, so it holds that for all sentences ${x \in \mathcal{L}}$, ${x\leqslant_p p}$.
 
+Additionally, $\mathfrak{s}$ induces equivalence relations on $\mathcal{L}$, so that we can define for sentences $q$ and $r$ 
+\[
+    q \sim_p r \Leftrightarrow q \leqslant_p r \land r \leqslant_p q,
+\]
+dividing up all sentences into equidistant equivalence classes relative to $p$.
 
+A neat consequence is another induced ordering: Consider the set of all equivalence classes $\mathcal{L}/\!\sim_p\,=\{ q/\!\sim_p \given q\in \mathcal{L} \}$. We define   
+\[
+    q/\!\sim_p~\lesssim_p~r/\!\sim_p~\Leftrightarrow q \leqslant_p r, 
+\]
+and since this is a relation on equivalence classes, the resulting ordering is strict, that is, not reflexive. It is still transitive, however.
 
+Now, let $l_1, \ldots, l_m$ list all elements of $\mathcal{L}/\!\sim_p$ such that $l_i \lesssim_p l_{i+1}$. By definition, we have for $a \in l_i, b \in l_{i+1}$ that $a \leqslant_p b$ for all $0 < i < m$. Geometrically, all elements of $l_i$ are equidistant to $p$ and thus lie on the surface of the same hypersphere. This hypersphere contains all elements of $l_j$ with $j < i$, such that we can define sets $S_1, \ldots, S_m$ with 
+\begin{enumerate}[label = (\roman*)]
+    \item $S_1 = l_1 = \{p\}$, and 
+    \item $S_i \subset S_{i+1}$. 
+\end{enumerate}
+Or in other words, $S_i \setminus S_{i-1} = l_i$. See figure~\ref{fig:spheres} for a graphical representation which shows different levels of similarity to our fixed sentence, $p$. The most similar in conceptual role is, of course, $p$ itself. $S_2$ contains all second-closest sentences. The \i{distance} of two sentences in $S_i\setminus\{i-1\}$ can be greater or less than to $p$, but is limited by the triangle inequality of the metric used.  
 
+\begin{figure}
+	\centering
+    \includegraphics[width=\textwidth]{Similarityspheres.png}
+	\caption{A two-dimensional representation of $n$-dimensional conceptual similarity spheres for a simple language with 4 equivalence classes\label{fig:spheres}}
+\end{figure}
 
-\subsection{A Live Example: The Lottery}
+Since these sets are defined over a conceptual similarity relation relative to a sentence relative to language and a probability function, these might be called conceptual similarity spheres and bear \i{some} structural resemblance to the similarity spheres used for counterfactual semantics by \textcite{Lewis1973-LEWC-2}. Most notable differences are that (a) the subjects of discourse here aren't possible worlds at all and instead sentences of a language and (b) that this is not an objective ordering of any kind and instead a purely subjective ordering based on an agent's probability function. Given such an probability function, however, the ordering is rather fix. It would be interesting to investigate under which permutation of different measures the ordering stays invariant.
+
+In short, through some simple structural features, a probability function yields a deep comparative notion of conceptual role of sentences and, One could presume, potentially some insights about meaning.
+
+Next, we'll develop a simple example to see how this notion of conceptual role works.
+
+\subsection{A Toy Example: The Lottery}
+
+To use a familiar example, let's consider a standard fair $n$-ticket lottery scenario in which an agents has beliefs about a very narrow set of sentences $\{ t_1, \ldots, t_n\}$, where $t_i$ is the sentence that the ticket number $i$ is the winning ticket.
+
+\subsection{Maybe Also Linda would be an interesting story?}
+
 \section{Linguistic Entities}
+\section{Contexts and Subspaces}
+Symmetry and Transitivity can be problematic, see Gardenfors 2004 p. 112 and Lewis (p. 51)
 \section{Inter-Personal Similarity of Conceptual Role}
 \section{Conceptual Learning}
 \section{Conclusions and Future Research}
