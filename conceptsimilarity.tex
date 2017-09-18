@@ -4,7 +4,7 @@
 %\usepackage[a4paper,lmargin={3.5cm},rmargin={3.5cm}, tmargin={2.5cm},bmargin = {2.5cm}]{geometry}
 \usepackage{setspace}
 \usepackage{indentfirst}
-\onehalfspacing
+\onehalfspacing{}
 \usepackage{enumitem}
 \usepackage{amsmath, amssymb}
 \usepackage[backend=biber, authordate, ibidtracker=context]{biblatex-chicago}
@@ -13,8 +13,8 @@
 \addbibresource{conceptsimilarity.bib}
 
 \usepackage{fontspec}
-\newfontfamily\osfamily{Latin Modern Roman}
-%\newfontfamily\osfamily{Old Standard TT}
+\newfontfamily\osfamily{Latin Modern Roman Demi}
+% \newfontfamily\osfamily{Old Standard TT}
 
 \renewcommand{\i}[1]{\emph{#1}}
 \newcommand{\given}[1][]{\:#1\vert\:}
@@ -28,7 +28,7 @@
 \begin{document}
 
 \maketitle
-
+\tableofcontents
 \section{Introduction}
 
 \subsection{Field's Notion of Conceptual Role}
@@ -54,17 +54,40 @@ The account used in computational linguistics is mostly functionalist, limiting 
 
 With this setup, it seems a small mental leap to the account of conceptual similarity proposed in this paper. 
 
+Perhaps I have to preface this by stating that this is not intended to be carried out in practice. I may be silly. You have been warned! (I will address the practicality of it later on)
+
 Presupposing subjective probabilities over a language, Field captures sameness in conceptual role (and \i{a fortiori} meaning) of two sentences through comparing their probabilities given each sentence of the language. Yet, the result is only a simple binary categorization. Either two sentences have the exact same conceptual role or they don't. While I find the idea of evidential relations determining the conceptual role of a linguistic expression to be very engaging, it leaves much to be desired. There may be expressions with the same conceptual role in a language, that is for sure, but what about all the other expressions? Aren't two sentences with \i{almost} the same conceptual role interesting to investigate? What about whole clusters of expressions? What about the comparison of conceptual roles of sentences for between speakers?
 
 I argue that there is rather interesting information of this type contained in the presupposed subjective probabilities. In this paper, I want to present the general idea, make it somewhat precise and sketch directions for future research.
 
-Suppose a finite propositional language $\mathcal{L}$ and an agent's subjective probability function $cr$ on that language. A spatial representation of the conceptual role of the sentences of the language can be achieved by assigning \i{sentences} to dimensions in this space. Let's look at a sentence $X$. To determine its location in a spatial representation, measure the \i{evidential relation} of a sentence $C_i$ to $X$ for each dimension, that is, each $i$, where $i$ indexes all sentences of the $\mathcal{L}$. 
+Suppose a finite propositional language $\mathcal{L}$ with set of sentences $S$ and an agent's subjective probability function $\Pr$ on that language. A spatial representation of the conceptual role of the sentences of the language can be achieved by assigning \i{sentences} to dimensions in a space. Let $V$ be an $n$-dimensional vector space over $\mathbb{R}$, where $n$ is the number of sentences in $S$. Let's look at a sentence $p \in S$. To determine its vector in $V$, we measure the \i{evidential relation} of a sentence $c_i$ to $p$ for each dimension, that is, each $c_i \in S$. 
 
-A plausible assumption I adopt from Field is that the evidential relation is captured at least partly by the conditional probability $\text{Pr}(X \given C_i)$, which consequently takes center stage here\footnote{Where defined.}. To express the evidential relation in a single number isn't trivial or uncontested, and I will return to this issue, but let's suppose there is such a measure $\mathfrak{c}(X,C_i)$ for each $i$. The location of $X$ in the spatial interpretation is then fully determined by the tupel $(\mathfrak{c}({X, C_1}),\dots, \mathfrak{c}(X, C_n))$, where $n$ is the number of sentences in $\mathcal{L}$. 
+A plausible assumption we adopt from Field is that the evidential relation is captured at least partly by the conditional probability $\Pr(p \given c_i)$, which consequently takes center stage here\footnote{Where defined. Field employs Popper functions in his paper, but since this breaks with the orthodoxy and they mostly prove useful when treating infinite sets \parencite[1352]{Leitgeb2013-LEIRBS}, I assume a classically axiomatized probability function.}. To express the evidential relation in a single number isn't trivial or uncontested, and we will return to this issue, but let's suppose there is such a measure $\mathfrak{c}: S \times S \rightarrow \left[-1,1\right]$. The location of $p$ in the spatial interpretation is then fully determined by $\mathbf{p}~=~(\mathfrak{c}({p, c_1}),\dots, \mathfrak{c}(p, c_n)) \in V$.
 
+To say something about the relation of the conceptual role of two different sentences $p$ and $q \in S$, we assume $\mathbf{p}$ and $\mathbf{q} \in V$ and introduce a second measure $\mathfrak{d}: V \times V \rightarrow \mathbb{R}^+$ which is intended to measure the distance between $\mathbf{p}$ and $\mathbf{q}$. This can be achieved by letting $\mathfrak{d}(\mathbf{p}, \mathbf{q})~=~\lVert \mathbf{p} - \mathbf{q} \rVert$ where 
+\[
+    \lVert \mathbf{p}-\mathbf{q} \rVert = {\left( \sum_{k=1}^n {(p_k-q_k)}^2 \right)}^{1/2} 
+\]
+which is just the euclidian distance. 
 
+The \i{similarity} between two sentences is then just a function that decreases as the distance increases and has a maximum when the distance is minimal, for example: $s = e^{cd}$, with a skalar $c$, and $d$ the distance of two vectors in $V$. In general, summing up, we have a function $\mathfrak{s}$ that assigns a similarity measure to pairs of sentences given a language and a subjective probability function, $\mathfrak{s}: S \times S \rightarrow \mathbb{R}^+$.  
+
+What is won with this precisification? We now have a precise notion of the spatial interpretation of similarity in conceptual role given an agent's subjective probability function. If we additionally buy into Field's premise of meaning being mainly constituted by conceptual role, the spatial interpretation can tell a lot about the meaning of linguistic expressions. 
+
+For example:
 
 \subsection{Order by Conceptual Similarity}
+
+Let's fix a sentence $p$. The similarity measure induces relations on $S$ of $\mathcal{L}$ with interesting properties. Perhaps quite obviously, we can define 
+\[
+    q \leqslant_p r \Leftrightarrow s(p,q) \leqslant s(p,r)
+\]
+for any two sentences $q$ and $r$, inducing an ordering on $\mathcal{L}$ that is \i{reflexive}, \i{transitive} but \i{not} antisymmetric since two sentences $q$ and $r$ may be equidistant to p, written $q \leqslant_p r$ and $r \leqslant_p q$, while $q \not = r$. Less formally, this relation orders all sentences by conceptual similartiy to $p$. Naturally, the most similar sentence to $p$ is $p$ itself, so it holds that for all sentences ${x \in \mathcal{L}}$, ${x\leqslant_p p}$.
+
+
+
+
+
 \subsection{A Live Example: The Lottery}
 \section{Linguistic Entities}
 \section{Inter-Personal Similarity of Conceptual Role}
