@@ -8,7 +8,7 @@
 \usepackage{mathtools}
 \usepackage{enumitem}
 \usepackage{graphicx}
-\usepackage{amsmath, amssymb}
+\usepackage{yfonts, amsmath, amssymb}
 \usepackage[backend=biber, authordate, ibidtracker=context]{biblatex-chicago}
 \usepackage{titlesec}
 \usepackage{color}
@@ -24,6 +24,8 @@
 
 \renewcommand{\i}[1]{\emph{#1}}
 \renewcommand{\L}{\mathcal{L}}
+\renewcommand{\v}[1]{\vec{\mathrm{#1}}}
+\newcommand{\m}[1]{\textswab{#1}}
 \newcommand{\given}[1][]{\:#1\vert\:}
 
 \titleformat{\section}{\Large\bfseries\osfamily}{\thesection}{1em}{}
@@ -71,22 +73,23 @@ Presupposing subjective probabilities over a language, Field captures sameness i
 
 I argue that there is rather interesting information of this type contained in the presupposed subjective probabilities. In this paper, I want to present the general idea, make it somewhat precise and sketch directions for future research.
 
-\subsection{The Central Formalism}
-
+\subsection{The Central Formalism}\label{sec:centralformalism}
 Suppose a finite propositional language $\L$ and an agent's subjective probability function $\Pr$ on that language.\footnote{For simplicity, $\L$ here just is a set of sentences.} A spatial representation of the conceptual role of the sentences of the language can be achieved by assigning \i{sentences} to dimensions in a space. Let $V$ be an $n$-dimensional vector space over $\mathbb{R}$, where $n$ is the number of sentences in $\L$. Let's look at a sentence $p \in \L$. To determine its vector in $V$, we measure the \i{evidential relation} of a sentence $c_i$ to $p$ for each dimension, that is, each $c_i \in S$. 
 
-A plausible assumption we adopt from Field is that the evidential relation is captured at least partly by the conditional probability $\Pr(p \given c_i)$, which consequently takes center stage here\footnote{Where defined. Field employs Popper functions in his paper, but since this breaks with the orthodoxy and they mostly prove useful when treating infinite sets \parencite[1352]{Leitgeb2013-LEIRBS}, I assume a classically axiomatised probability function.}. To express the evidential relation in a single number isn't trivial or uncontested, and we will return to this issue, but let's suppose there is such a measure $\mathfrak{c}: S \times S \rightarrow \left[-1,1\right]$. The location of $p$ in the spatial interpretation is then fully determined by $\mathbf{p}~=~(\mathfrak{c}({p, c_1}),\dots, \mathfrak{c}(p, c_n)) \in V$.
+A plausible assumption we adopt from Field is that the evidential relation is captured at least partly by the conditional probability $\Pr(p \given c_i)$, which consequently takes center stage here\footnote{Where defined. Field employs Popper functions in his paper, but since this breaks with the orthodoxy and they mostly prove useful when treating infinite sets \parencite[1352]{Leitgeb2013-LEIRBS}, I assume a classically axiomatised probability function.}. To express the evidential relation in a single number isn't trivial or uncontested, and we will return to this issue, but let's suppose there is such a measure $\m{c}: S \times S \rightarrow \mathbb{R}$. The location of $p$ in the spatial interpretation is then fully determined by $\v{p}~=~(\m{c}({p, c_1}),\dots, \m{c}(p, c_n)) \in V$.
 
-To say something about the relation of the conceptual role of two different sentences $p$ and $q \in S$, we assume $\mathbf{p}$ and $\mathbf{q} \in V$ and introduce a second measure $\mathfrak{d}: V \times V \rightarrow \mathbb{R}^+$ which is intended to measure the distance between $\mathbf{p}$ and $\mathbf{q}$. This can be achieved by letting $\mathfrak{d}(\mathbf{p}, \mathbf{q})~=~\lVert \mathbf{p} - \mathbf{q} \rVert$ where 
+To say something about the relation of the conceptual role of two different sentences $p$ and $q \in \L$, we assume $\v{p}$ and $\v{q} \in V$ and introduce a second measure $\m{d}: V \times V \rightarrow \mathbb{R}^+$ which is intended to measure the distance between $\v{p}$ and $\v{q}$. This can be achieved, among alternatives, by letting ${\m{d}(\v{p}, \v{q})~=~\lVert \v{p} - \v{q} \rVert}$ where 
 \[
-    \lVert \mathbf{p}-\mathbf{q} \rVert = {\left( \sum_{k=1}^n {(p_k-q_k)}^2 \right)}^{1/2}, 
+    \lVert \v{p}-\v{q} \rVert = {\left( \sum_{k=1}^n {(p_k-q_k)}^2 \right)}^{1/2}, 
 \]
 which is just the euclidean distance. 
 
-The \i{similarity} between two sentences is then just a function that decreases as the distance increases and has a maximum when the distance is minimal, for example: $s = e^{cd}$, with a scalar $c$, and $d$ the distance of two vectors in $V$. 
+The \i{similarity} between two sentences is then just a scoring function that decreases as the distance increases and has a maximum when the distance is minimal, for example: $s_{pq} = e^{-cd_{pq}}$, with a scalar $c$, and where $d_{pq}$ is the distance of two vectors $\v{p}, \v{q} \in V$. 
 
 {\color{red}This is not cleaned up, please write properly.}
-In general, summing up, we have a function $\mathfrak{s}$ that assigns a similarity measure to pairs of sentences given a language and a subjective probability function, $\mathfrak{s}: S \times S \rightarrow \mathbb{R}^+$. We require a monotonically decreasing, continuous function. 
+In general we have a function ${\m{s}: \mathbb{R}^+ \rightarrow \mathbb{R}^+ }$ that maps distances to similarity measures. We require a monotonically decreasing, continuous function {\color{red} why?}. 
+
+Summing up, we generate a representation of each sentence of the language as a vector in a vector space by measuring its evidential relation to all other sentences of the language with the help of a function $\m{c}$. We then assign similarity scores to pairs of vectors with the composition of distance measure and similarity score: ${\m{s}\circ \m{d} : V \times V \rightarrow \mathbb{R}^+}$.
 
 What is won with this precisification? We now have a precise notion of the spatial interpretation of similarity in conceptual role given an agent's subjective probability function. If we additionally buy into Field's premise of meaning being mainly constituted by conceptual role, the spatial interpretation can tell a lot about the meaning of linguistic expressions. 
 
@@ -94,13 +97,13 @@ For example:
 
 \subsection{Order by Conceptual Similarity}
 
-Let's fix a sentence $p$. The spatial structure of the similarity measure induces relations on $S$ of $\L$ with interesting properties. Perhaps quite obviously, we can define 
+Let's fix a sentence $p$. The spatial structure of the similarity measure induces relations on $\L$ with interesting properties. Perhaps quite obviously, we can define 
 \[
     q \leqslant_p r \Leftrightarrow s(p,q) \leqslant s(p,r)
 \]
 for any two sentences $q$ and $r$, inducing an ordering on $\L$ that is \i{reflexive}, \i{transitive} but \i{not} antisymmetric since two sentences $q$ and $r$ may be equidistant to p, written $q \leqslant_p r$ and $r \leqslant_p q$, while $q \not = r$. Less formally, this relation orders all sentences by conceptual similarity to $p$. Naturally, the most similar sentence to $p$ is $p$ itself, so it holds that for all sentences ${x \in \L}$, ${x\leqslant_p p}$.
 
-Additionally, $\mathfrak{s}$ induces equivalence relations on $\L$, so that we can define for sentences $q$ and $r$ 
+Additionally, $\m{s}$ induces equivalence relations on $\L$, so that we can define for sentences $q$ and $r$ 
 \[
     q \sim_p r \Leftrightarrow q \leqslant_p r \land r \leqslant_p q,
 \]
@@ -114,18 +117,18 @@ and since this is a relation on equivalence classes, the resulting ordering is s
 
 Now, let $l_1, \ldots, l_m$ list all elements of $\L/\!\sim_p$ such that $l_i \lesssim_p l_{i+1}$. By definition, we have for $a \in l_i, b \in l_{i+1}$ that $a \leqslant_p b$ for all $0 < i < m$. Geometrically, all elements of $l_i$ are equidistant to $p$ and thus lie on the surface of the same hypersphere. This hypersphere contains all elements of $l_j$ with $j < i$, such that we can define sets $S_1, \ldots, S_m$ with 
 \begin{enumerate}[label = (\roman*)]
-    \item $S_1 = l_1 = \{p\}$, and 
+    \item $S_1 = l_1$, with $p \in S_1$ and 
     \item $S_i \subset S_{i+1}$\footnote{The inclusion is strict since we already excluded equivalence through the ordering on equivalence classes.}. 
 \end{enumerate}
-Or in other words, $S_i \setminus S_{i-1} = l_i$. See figure~\ref{fig:spheres} for a graphical representation which shows different levels of similarity to our fixed sentence, $p$. The most similar in conceptual role is, of course, $p$ itself. $S_2$ contains all second-closest sentences. The \i{distance} of two sentences in $S_i\setminus\{i-1\}$ can be greater or less than to $p$, but is limited by the triangle inequality of the metric used.  
+Or in other words, $S_i \setminus S_{i-1} = l_i$. See figure~\ref{fig:spheres} for a graphical representation which shows different levels of similarity to our fixed sentence, $p$. The most similar in conceptual role is $p$ itself\footnote{Although, of course, there may be distinct sentences with the exact same conceptual role,  such that $S_1^p$ may include additional sentences, which is Field's whole point.}. $S_2$ contains all second-closest sentences and so forth. The \i{distance} of two sentences in $S_i\setminus S_{i-1}$ can be greater or less than to $p$, but is limited by the triangle inequality of the metric used.  
 
 \begin{figure}
 	\centering
     \includegraphics[width=\textwidth]{Similarityspheres.png}
-	\caption{A two-dimensional representation of $n$-dimensional conceptual similarity spheres for a simple language with 4 equivalence classes\label{fig:spheres}}
+    \caption{{\color{red} FIX PICTURE REMOVE p}A two-dimensional representation of $n$-dimensional conceptual similarity spheres for a simple language with 4 equivalence classes\label{fig:spheres}}
 \end{figure}
 
-Since these sets are defined over a conceptual similarity relation relative to a sentence relative to language and a probability function, these might be called conceptual similarity spheres and bear \i{some} structural resemblance to the similarity spheres used for counterfactual semantics by \textcite{Lewis1973-LEWC-2}. Most notable differences are that (a) the subjects of discourse here aren't possible worlds at all and instead sentences of a language and (b) that this is not an objective ordering of any kind and instead a purely subjective ordering based on an agent's probability function. Given such a probability function, however, the ordering is rather fix. It would be interesting to investigate under which permutation of different measures the ordering stays invariant.
+Since these sets are defined over a conceptual similarity relation (relative to a sentence relative to language and a probability function), these might be called conceptual similarity spheres and bear \i{some} structural resemblance to the similarity spheres used for counterfactual semantics by \textcite{Lewis1973-LEWC-2}, which might be suspected when glancing at figure~\ref{fig:spheres}. Most notable differences are that (a) the subjects of discourse here aren't possible worlds at all and instead sentences of a language, that (b) two sentences may inhabit the exact same location, that is, have the same conceptual role, whereas two possible worlds are distinct from one another and (c) that this is not an objective ordering of any kind and instead a purely subjective ordering based on an agent's probability function. Given such a probability function, however, the ordering is rather fix. It would be interesting to investigate under which permutations of different measures the ordering stays invariant.
 
 In short, through some simple structural features, a probability function yields a deep comparative notion of conceptual role of sentences and, One could presume, potentially some insights about meaning.
 
@@ -143,13 +146,13 @@ To use a familiar example, let's consider a standard fair $n$-ticket lottery sce
     \end{cases*}
 \]
 
-We might, in this case, set $\mathfrak{c}(t_i, t_j) = \Pr(t_i \given t_j)$ and so with a euclidean distances measure 
+We might, in this case, set $\m{c}(t_i, t_j) = \Pr(t_i \given t_j)$ and so with a euclidean distances measure 
 \[
-    \mathfrak{d}(t_i,t_j) = {\left( \sum_{k=1}^n {(t_{i_k}-t_{j_k})}^2 \right)}^{1/2} = \sqrt{2},  
+    \m{d}(t_i,t_j) = {\left( \sum_{k=1}^n {(t_{i_k}-t_{j_k})}^2 \right)}^{1/2} = \sqrt{2},  
 \]
 if $i \not = j$.
 
-Hence, for any fixed $t_i$ there are only two corresponding similarity spheres:\footnote{No matter how we chose the similarity function $\mathfrak{s}$, as long as it is monotonously decreasing, as required above.} $S^1_{t_i} = \{ t_i\}$ and $S^2_{t_i}$, which contains all other sentences. 
+Hence, for any fixed $t_i$ there are only two corresponding similarity spheres:\footnote{No matter how we chose the similarity function $\m{s}$, as long as it is monotonously decreasing, as required above.} $S^1_{t_i} = \{ t_i\}$ and $S^2_{t_i}$, which contains all other sentences. 
 
 This result isn't particularly exciting, but it serves well enough to indicate the spatial interpretation of conceptual role: Given no further information, $t_1$ and $t_{10}$ are just as close in meaning as $t_2$ and $t_{77}$. It is easy to see that were we to add additional constraints, such as that you yourself hold the ticket number 25 and we add the sentence $w$: ``I win the lottery!'', the previously strict symmetry is broken and $t_{25}$ takes a spatially distinguished position.
 
@@ -170,7 +173,7 @@ This needn't be just those sentences that correspond to propositions assumed tru
 
 Intuitively, then, one way to work with a context is to ``chip away'' at the vector space and remove as many dimensions as needed such that only dimensions corresponding to a context set remain.
 
-More formally, let $V$ be a vector space over $\mathbb{R}$ with dimensions corresponding to sentences in a language $\L$ as above, with an appropriate measure $\mathfrak{c}$ chosen. Let $C \subseteq \L$ fix a context set of sentences that interest us, and let $V_C$ be a vector space over $\mathbb{R}$ with dimensions corresponding to sentences in $C$.\footnote{Since $V$ is just $\mathbb{R}^n$, and $V_C$ is just $\mathbb{R}^m$ with $m \leqslant n$, it follows directly that $V_C$ is a subspace of $V$.} Then $V_C$ is a subspace of $V$.
+More formally, let $V$ be a vector space over $\mathbb{R}$ with dimensions corresponding to sentences in a language $\L$ as above, with an appropriate measure $\m{c}$ chosen. Let $C \subseteq \L$ fix a context set of sentences that interest us, and let $V_C$ be a vector space over $\mathbb{R}$ with dimensions corresponding to sentences in $C$.\footnote{Since $V$ is just $\mathbb{R}^n$, and $V_C$ is just $\mathbb{R}^m$ with $m \leqslant n$, it follows directly that $V_C$ is a subspace of $V$.} Then $V_C$ is a subspace of $V$.
 
 In a subspace like this, the distances between sentences can, of course, change markedly compared to the surrounding space, since dimensions that made up the bulk of the distance could be disregarded. Each context, then, induces another family of orderings on $\L$ by conceptual similarity.
 
@@ -178,7 +181,7 @@ The metaphor of a context as a subspace has some interesting advantages. It coul
 
 Don't know where to go with the following, might be relegated to a footnote..
 
-Since for two subspaces of $V$, say $V_C$ and $V_D$, $V_C \cup V_D$ as well as $V_C \cap V_D$ are subspaces of $V$, contexts can be combined at will. This might be interesting if we look at contexts from another angle: Given a sentence $p$, what are relevant other sentences? What could be considered a \i{total} context of $p$? Intuitively, those sentences that $p$ stands in an evidential relation with, or is not probabilistically independent of. Depending on the measure $\mathfrak{c}$ chosen, these might be exactly those sentences corresponding to the dimensions $p$ takes a non-zero value in $V$. This gives a total context set for $p$. Accordingly, this can be generated with additional sentences. The intersection of both yields the common context, another way to generate a subspace from a context set. 
+Since for two subspaces of $V$, say $V_C$ and $V_D$, $V_C \cup V_D$ as well as $V_C \cap V_D$ are subspaces of $V$, contexts can be combined at will. This might be interesting if we look at contexts from another angle: Given a sentence $p$, what are relevant other sentences? What could be considered a \i{total} context of $p$? Intuitively, those sentences that $p$ stands in an evidential relation with, or is not probabilistically independent of. Depending on the measure $\m{c}$ chosen, these might be exactly those sentences corresponding to the dimensions $p$ takes a non-zero value in $V$. This gives a total context set for $p$. Accordingly, this can be generated with additional sentences. The intersection of both yields the common context, another way to generate a subspace from a context set. 
 
 
 
@@ -186,15 +189,24 @@ Since for two subspaces of $V$, say $V_C$ and $V_D$, $V_C \cup V_D$ as well as $
 
 So far, the spatial interpretation of conceptual role has only been developed for a single language, with a single probability function. What is really interesting, though, is whether the account can be extended so as to include inter-speaker similarity in conceptual role. This is a much needed notion, as it strives to deal with an explication of why communication between two speakers actually works, although they, let's plausibly assume, do not mean \i{exactly} the same when using linguistic expressions. 
 
-The problem is, of course, quite notorious, and we can only hope to hint at a possible solution.
+The problem is, of course, quite notorious, and we can only hope to hint at a possible solution here.
 
 Intuitively, though, the answer seems clear: two speakers use their expression \i{similarly enough} for communication to properly function, exact sameness in meaning is not required. How does that figure in this account? Can we find a formal explication of this idea? We need to (i) find a measure for the similarity in conceptual role and (ii) explain what it means to be similarly enough that actual communication can take place.
 
+
 {\color{red} (Perhaps briefly describe what field does and describe his problem)}
 
-The simplest case assumes two agents with probability functions over the exact same language. It is now just a matter to slightly rewrite the previous results, carefully distinguishing between each agents probability function.
+Let's attack (i). The central problem is how to map the language of one agent to the other agent's language such that pairs of sentences will be assigned to a single dimension in the vector space. That is, when comparing the conceptual role of two sentences of two agents, we need to find a way to represent both languages in the same vector space to make sense of the idea of a distance measure. But which sentences get paired up, as there might not be one-to-one correspondence at all? If just a random sentence is chosen, all information is lost, we instead need to find an pairing that mirrors most closely the \i{structure} of its evidential relations. This challenge can be formalized as follows:
 
-Suppose two speakers with languages $\L$ and $\L'$ and probability functions $\Pr$ and $\Pr'$, respectively.
+Suppose two speakers with languages $\L$ and $\L'$ and probability functions $\Pr$ and $\Pr'$ over their languages, respectively. The goal is to find a function ${f: \L \rightarrow \L'}$ such that two sentences $p \in \L$ and $p' \in \L'$ can be compared with respect to the measures of evidential relation $\m{c}$ and $\m{c}'$ to other sentences $c_i \in \L$ and $f(c_i) \in \L'$. If we have such a function, a vector in the created vector space for $p$ is determined by $\v{p} = (\m{c}(p,c_i),\ldots,\m{c}(p,c_n))$ as above and for $p'$ by $\v{p}' = (\m{c}'(p',f(c_i)),\ldots,\m{c}(p',f(c_n)))$. {\color{red} go on and explain} 
+
+We need to distinguish between cases since as soon as we relax some assumptions the account gets significantly less trivial.
+
+The simplest case assumes two agents with probability functions over the exact same language. In this case is $\L = \L'$ and the function $f: \L \rightarrow \L'$ is just the identity function, and we are done, it seems like.
+
+But wait a minute: We spoke quite carelessly of identity of sentences so far. What does it mean that $\L = \L'$? The elements are identical. The criterion for sentential identity is lexical identity, such that the sentences ``There are two cats on the mat'' and ``There are 2 cats on the mat'' are \i{not} identical to one another, although they \i{mean} the same, let's assume. On the other hand, two lexically identical sentences may mean something different relative to an agent's probability function. In fact, two agents may assign wildly different conceptual roles to lexically identical sentences. Using the lexically identical sentences as fixpoints to merge both speaker's spatial representations of conceptual role as described above, then, seems to just beg the question, or at best rely on an empirical assumption that most probably, the lexically same sentence will mean about the same. But this is just what we set out to do: find a measure for semantic similarity. This kind of arbitrariness is unsatisfying for a formal treatment like the one we are undertaking, showing the need for a more general account that, when applied to a case like the simplest one with identical languages,yields in normal cases just the result  
+
+ Let's compare two sentences $p \in \L$ and $p' \in \L'$. Since $\L$ = $\L'$, we may assume $V = V'$. With measures $\mathfrak{c}$ and $\mathfrak{c}$ determined by $\Pr$ and $\Pr'$, respectively, the distance measure and similarity score can just be applied as in Section~\ref{sec:centralformalism} and we are done. If both speakers share the exact same language, the vector space is already the same, so the 
 
 \section{Linguistic Entities}
 \section{Conceptual Learning}
