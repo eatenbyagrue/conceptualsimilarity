@@ -46,6 +46,7 @@
 
 \subsection{Field's Notion of Conceptual Role}
 \subsection{Gärdenfors' Conceptual Spaces}
+\subsection{Churchland, Semantic State Space}
 Gärdenfors' Dimensions are rooted in phenomenal experiences and mostly are motivated by empirical, psychological research.
 \subsection{Word Space Models in Computational Linguistics}
 Its seems like a very natural idea: The geometric interpretation of mental representations provides a promising attempt at an explication of meaning. Geometric approaches have been extraordinarily popular in Computational Linguistics and Natural Language Processing. There, the geometric interpretation or metaphor has a lot of different realisations used for a wide variety of tasks. Quite common is the statistical analysis of huge amounts of data in text form, assigning quantifiable features to linguistic expressions in this data. The goal is to find some statistical patterns in the texts which indicate interesting properties of the linguistic expressions, for example automated recognition of the syntactic role of the expression, or which expressions are named entities, or whether the author of the texts talks about her subject favourably or dismissively. All these tasks have been met with quite the success, suggesting that there is a tangible connection of structural information represented geometrically and what might be generously called the \i{content} of the data. The connection to word meaning is almost straightforward, then, if one takes for example Gärdenfors' instrumentalist position [Citation needed]. Employing a Wittgensteinian functionalist picture of meaning as language \i{use}, the linguist is enabled to research about meaning with computational methods.
@@ -73,7 +74,7 @@ Presupposing subjective probabilities over a language, Field captures sameness i
 
 I argue that there is rather interesting information of this type contained in the presupposed subjective probabilities. In this paper, I want to present the general idea, make it somewhat precise and sketch directions for future research.
 
-\subsection{The Central Formalism}\label{sec:centralformalism}
+\subsection{The Central Formalism}\label{sec:central}
 Suppose a finite propositional language $\L$ and an agent's subjective probability function $\Pr$ on that language.\footnote{For simplicity, $\L$ here just is a set of sentences.} A spatial representation of the conceptual role of the sentences of the language can be achieved by assigning \i{sentences} to dimensions in a space. Let $V$ be an $n$-dimensional vector space over $\mathbb{R}$, where $n$ is the number of sentences in $\L$. Let's look at a sentence $p \in \L$. To determine its vector in $V$, we measure the \i{evidential relation} of a sentence $c_i$ to $p$ for each dimension, that is, each $c_i \in S$. 
 
 A plausible assumption we adopt from Field is that the evidential relation is captured at least partly by the conditional probability $\Pr(p \given c_i)$, which consequently takes center stage here\footnote{Where defined. Field employs Popper functions in his paper, but since this breaks with the orthodoxy and they mostly prove useful when treating infinite sets \parencite[1352]{Leitgeb2013-LEIRBS}, I assume a classically axiomatised probability function.}. To express the evidential relation in a single number isn't trivial or uncontested, and we will return to this issue, but let's suppose there is such a measure $\m{c}: S \times S \rightarrow \mathbb{R}$. The location of $p$ in the spatial interpretation is then fully determined by $\v{p}~=~(\m{c}({p, c_1}),\dots, \m{c}(p, c_n)) \in V$.
@@ -95,13 +96,13 @@ What is won with this precisification? We now have a precise notion of the spati
 
 For example:
 
-\subsection{Order by Conceptual Similarity}
+\subsection{Order by Conceptual Similarity}\label{sec:order}
 
 Let's fix a sentence $p$. The spatial structure of the similarity measure induces relations on $\L$ with interesting properties. Perhaps quite obviously, we can define 
 \[
     q \leqslant_p r \Leftrightarrow s(p,q) \leqslant s(p,r)
 \]
-for any two sentences $q$ and $r$, inducing an ordering on $\L$ that is \i{reflexive}, \i{transitive} but \i{not} antisymmetric since two sentences $q$ and $r$ may be equidistant to p, written $q \leqslant_p r$ and $r \leqslant_p q$, while $q \not = r$. Less formally, this relation orders all sentences by conceptual similarity to $p$. Naturally, the most similar sentence to $p$ is $p$ itself, so it holds that for all sentences ${x \in \L}$, ${x\leqslant_p p}$.
+for any two sentences $q$ and $r$, inducing an ordering on $\L$ that is \i{total}, \i{reflexive}, \i{transitive} but \i{not} antisymmetric since two sentences $q$ and $r$ may be equidistant to p, written $q \leqslant_p r$ and $r \leqslant_p q$, while $q \not = r$. Less formally, this relation orders all sentences by conceptual similarity to $p$. Naturally, the most similar sentence to $p$ is $p$ itself, so it holds that for all sentences ${x \in \L}$, ${x\leqslant_p p}$.
 
 Additionally, $\m{s}$ induces equivalence relations on $\L$, so that we can define for sentences $q$ and $r$ 
 \[
@@ -115,24 +116,24 @@ A neat consequence is another induced ordering: Consider the set of all equivale
 \]
 and since this is a relation on equivalence classes, the resulting ordering is strict, that is, not reflexive. It is still transitive, however.
 
-Now, let $l_1, \ldots, l_m$ list all elements of $\L/\!\sim_p$ such that $l_i \lesssim_p l_{i+1}$. By definition, we have for $a \in l_i, b \in l_{i+1}$ that $a \leqslant_p b$ for all $0 < i < m$. Geometrically, all elements of $l_i$ are equidistant to $p$ and thus lie on the surface of the same hypersphere. This hypersphere contains all elements of $l_j$ with $j < i$, such that we can define sets $S_1, \ldots, S_m$ with 
+Now, let $l_1, \ldots, l_m$ list all elements of $\L/\!\sim_p$ such that $l_i \lesssim_p l_{i+1}$. By definition, we have for $a \in l_i, b \in l_{i+1}$ that $a \leqslant_p b$ for all $0 < i < m$. Geometrically, all elements of $l_i$ are equidistant to $p$ and thus lie on the surface of the same hypersphere. This hypersphere contains all elements of $l_j$ with $j < i$, such that we can define sets $S^1_p, \ldots, S^m_p$ with 
 \begin{enumerate}[label = (\roman*)]
-    \item $S_1 = l_1$, with $p \in S_1$ and 
-    \item $S_i \subset S_{i+1}$\footnote{The inclusion is strict since we already excluded equivalence through the ordering on equivalence classes.}. 
+    \item $S^1_p = l_1$, with $p \in S^1_p$ and 
+    \item\footnote{The inclusion is strict since we already excluded equivalence through the ordering on equivalence classes.}$S^i_p \subset S^{i+1}_p$. 
 \end{enumerate}
-Or in other words, $S_i \setminus S_{i-1} = l_i$. See figure~\ref{fig:spheres} for a graphical representation which shows different levels of similarity to our fixed sentence, $p$. The most similar in conceptual role is $p$ itself\footnote{Although, of course, there may be distinct sentences with the exact same conceptual role,  such that $S_1^p$ may include additional sentences, which is Field's whole point.}. $S_2$ contains all second-closest sentences and so forth. The \i{distance} of two sentences in $S_i\setminus S_{i-1}$ can be greater or less than to $p$, but is limited by the triangle inequality of the metric used.  
+Or in other words, $S^{i+1}_p \setminus S^{i}_p = l_{i+1}$. See Figure~\ref{fig:spheres} for a graphical representation which shows different levels of similarity to our fixed sentence, $p$. The most similar in conceptual role is $p$ itself.\footnote{Although, of course, there may be distinct sentences with the exact same conceptual role,  such that $S^1_p$ may include additional sentences, which is Field's point.} $S^2_p$ contains all second-closest sentences and so forth. The \i{distance between} two sentences in $S^{i+1}_p\setminus S^{i}_p$ can be greater or less than to $p$, but is limited by the triangle inequality of the metric used.\footnote{$\m{d}(q,r) \leqslant \m{d}(q,p) + \m{d}(r,p)$.} 
 
 \begin{figure}
 	\centering
     \includegraphics[width=\textwidth]{Similarityspheres.png}
-    \caption{{\color{red} FIX PICTURE REMOVE p}A two-dimensional representation of $n$-dimensional conceptual similarity spheres for a simple language with 4 equivalence classes\label{fig:spheres}}
+    \caption{A two-dimensional representation of $n$-dimensional conceptual similarity spheres for a simple language with 4 equivalence classes\label{fig:spheres}}
 \end{figure}
 
-Since these sets are defined over a conceptual similarity relation (relative to a sentence relative to language and a probability function), these might be called conceptual similarity spheres and bear \i{some} structural resemblance to the similarity spheres used for counterfactual semantics by \textcite{Lewis1973-LEWC-2}, which might be suspected when glancing at figure~\ref{fig:spheres}. Most notable differences are that (a) the subjects of discourse here aren't possible worlds at all and instead sentences of a language, that (b) two sentences may inhabit the exact same location, that is, have the same conceptual role, whereas two possible worlds are distinct from one another and (c) that this is not an objective ordering of any kind and instead a purely subjective ordering based on an agent's probability function. Given such a probability function, however, the ordering is rather fix. It would be interesting to investigate under which permutations of different measures the ordering stays invariant.
+Since these sets are defined over a conceptual similarity relation (relative to a sentence relative to language and a probability function), these might be called conceptual similarity spheres and bear \i{some} structural resemblance to the similarity spheres used for counterfactual semantics by \textcite{Lewis1973-LEWC-2}, which might already be suspected when glancing at Figure~\ref{fig:spheres}. Most notable differences are that (a) the subjects of discourse here aren't possible worlds at all and instead sentences of a language, that (b) two sentences may inhabit the exact same location, that is, have the same conceptual role, whereas two possible worlds are distinct from one another and (c) that this is not an objective ordering of any kind and instead a purely subjective ordering based on an agent's probability function. Given such a probability function, however, the ordering is rather fix. It would be interesting to investigate under which permutations of different measures the ordering stays invariant.
 
-In short, through some simple structural features, a probability function yields a deep comparative notion of conceptual role of sentences and, One could presume, potentially some insights about meaning.
+In short, through some simple structural features, a probability function yields a deep comparative notion of conceptual role of sentences and, one could presume, potentially some insights about meaning.
 
-Next, we'll develop a simple example to see how this notion of conceptual role works.
+Next, we'll develop a simple example to see how this notion of conceptual role is applied.
 
 \subsection{A Toy Example: The Lottery}
 
@@ -196,26 +197,50 @@ Intuitively, though, the answer seems clear: two speakers use their expression \
 
 {\color{red} (Perhaps briefly describe what field does and describe his problem)}
 
+\subsection{The Right Mapping Between Languages}
+
 Let's attack (i). The central problem is how to map the language of one agent to the other agent's language such that pairs of sentences will be assigned to a single dimension in the vector space. That is, when comparing the conceptual role of two sentences of two agents, we need to find a way to represent both languages in the same vector space to make sense of the idea of a distance measure. But which sentences get paired up, as there might not be one-to-one correspondence at all? If just a random sentence is chosen, all information is lost, we instead need to find an pairing that mirrors most closely the \i{structure} of its evidential relations. This challenge can be formalized as follows:
 
-Suppose two speakers with languages $\L$ and $\L'$ and probability functions $\Pr$ and $\Pr'$ over their languages, respectively. The goal is to find a function ${f: \L \rightarrow \L'}$ such that two sentences $p \in \L$ and $p' \in \L'$ can be compared with respect to the measures of evidential relation $\m{c}$ and $\m{c}'$ to other sentences $c_i \in \L$ and $f(c_i) \in \L'$. If we have such a function, a vector in the created vector space for $p$ is determined by $\v{p} = (\m{c}(p,c_i),\ldots,\m{c}(p,c_n))$ as above and for $p'$ by $\v{p}' = (\m{c}'(p',f(c_i)),\ldots,\m{c}(p',f(c_n)))$. {\color{red} go on and explain} 
-
-We need to distinguish between cases since as soon as we relax some assumptions the account gets significantly less trivial.
+Suppose two speakers with languages $\L$ and $\L'$ and probability functions $\Pr$ and $\Pr'$ over their languages, respectively. The goal is to find a surjective function ${f: \L \rightarrow \L'}$\footnote{We assume here for simplicity of notation that $|\L| \geqslant |\L'|$.} such that two sentences $p \in \L$ and $p' \in \L'$ can be compared with respect to the measures of evidential relation $\m{c}$ and $\m{c}'$ to other sentences $c_i \in \L$ and $f(c_i) \in \L'$. If we have such a function, a vector in the created vector space for $p$ is determined by $\v{p} = (\m{c}(p,c_i),\ldots,\m{c}(p,c_n))$ as above and for $p'$ by $\v{p}' = (\m{c}'(p',f(c_i)),\ldots,\m{c}'(p',f(c_n)))$. {\color{red} go on and explain} 
 
 The simplest case assumes two agents with probability functions over the exact same language. In this case is $\L = \L'$ and the function $f: \L \rightarrow \L'$ is just the identity function, and we are done, it seems like.
 
-But wait a minute: We spoke quite carelessly of identity of sentences so far. What does it mean that $\L = \L'$? The elements are identical. The criterion for sentential identity is lexical identity, such that the sentences ``There are two cats on the mat'' and ``There are 2 cats on the mat'' are \i{not} identical to one another, although they \i{mean} the same, let's assume. On the other hand, two lexically identical sentences may mean something different relative to an agent's probability function. In fact, two agents may assign wildly different conceptual roles to lexically identical sentences. Using the lexically identical sentences as fixpoints to merge both speaker's spatial representations of conceptual role as described above, then, seems to just beg the question, or at best rely on an empirical assumption that most probably, the lexically same sentence will mean about the same. But this is just what we set out to do: find a measure for semantic similarity. This kind of arbitrariness is unsatisfying for a formal treatment like the one we are undertaking, showing the need for a more general account that, when applied to a case like the simplest one with identical languages,yields in normal cases just the result  
+But wait a minute: We spoke quite carelessly of identity of sentences so far. What does it mean that $\L = \L'$? The elements are identical. The criterion for sentential identity is lexical identity, such that the sentences ``There are two cats on the mat'' and ``There are 2 cats on the mat'' are \i{not} identical to one another, although they \i{mean} the same, let's assume. On the other hand, two lexically identical sentences may mean something different relative to an agent's probability function. In fact, two agents may assign wildly different conceptual roles to lexically identical sentences. Using the lexically identical sentences as fixpoints to merge both speaker's spatial representations of conceptual role as described above, then, seems to just beg the question, or at best rely on an empirical assumption that most probably, the lexically same sentence will mean about the same. But this is just what we set out to do: find a measure for semantic similarity. This kind of arbitrariness is unsatisfying for a formal treatment like the one we are undertaking, showing the need for a more general account that, when applied to a case like the simplest one with identical languages, yields in normal cases just the mapping of sentences to lexically identical ones, while allowing for mappings to other sentences as well, depending on the probability function. 
 
- Let's compare two sentences $p \in \L$ and $p' \in \L'$. Since $\L$ = $\L'$, we may assume $V = V'$. With measures $\mathfrak{c}$ and $\mathfrak{c}$ determined by $\Pr$ and $\Pr'$, respectively, the distance measure and similarity score can just be applied as in Section~\ref{sec:centralformalism} and we are done. If both speakers share the exact same language, the vector space is already the same, so the 
+What, then, should determine $f(p)$? Intuitively, the sentence of $\L'$ \i{closest in meaning} to $p$. In normal circumstances, this is quite often the lexically identical sentence, if available. In a general account, this might be any sentence of $\L'$. The usefulness of this criterion varies enormously with the commensurability of the languages. If $\L$ is a full-blown no-expenses-spared propositional language akin to a natural language, and $\L'$ is $\{p, q\}$, there is not much sense in asking about semantic similarity across languages. Lets assume somewhat comparable languages. Isn't this approach even \i{more} question-begging than the last? After all, how are we to quantify semantic similarity if not through the spatial representation? This is a valid concern, however, we need to distinguish between a \i{definition} of $f$, which may be circular, and a \i{criterion} to actually determine $f(c_i)$. The former might not yield an answer to how to do the latter, which might not be a trivial task.
 
-\section{Linguistic Entities}
-\section{Conceptual Learning}
-\section{Objections, Conclusions and Future Research}
-Symmetry and Transitivity can be problematic, see Gardenfors 2004 p. 112 and Lewis (p. 51)
+How to define $f$ now? This is just a formalisation of the intuitive idea above. 
+We let $\L'$ be $\leqslant_{c_i}$-ordered like in Section~\ref{sec:order}. Then $f(c_i)$ is a maximal element of $\L'$.\footnote{Maximal element because the ordering is not antisymmetric, meaning that there are potentially multiple maximal elements. For this case, we need to chose one. Maybe \i{then} a lexical criterion could be applied, comparing the lexical similarity e.g.\ by taking the Levenshtein-distance.} And that's it. 
+
+\ldots Since this probably satisfies no one, let's explain by summarize this section. In order to determine the similarity in conceptual role of two sentences $p$ and $p'$ of different speakers, we calculate the distance $\m{d}(p,p')$, for which we need a mapping $f(c_i) = c_i'$ to determine the terms $\m{c}(p,c_i) - \m{c}(p',c_i')$. To determine $f(c_i)$, we assume $\L'$ to be $\leqslant_{c_i}$-ordered, which just means that we ordered all sentences in $\L'$ by conceptual similarity to $c_i (\in \L)$. In order to do this, we need to calculate the distance $\m{d}(c_i,d')$ for all sentences $d' \in \L'$, for which we need a mapping $f(e_j) = e_j'$ to calculate the terms $\m{c}(c_i,e_j) - \m{c}(d',e_j')$ --- You get the idea, the definition of $f$ is circular. 
+
+This needn't be a devastating thing, though, as a circular definition can ``in practice''\footnote{I'm adding scare quotes here since we are still far away from anything is actually implemented anywhere.} be made recursive by adding a base case, i.e.\ terminating condition, and changing the recursion step just a tiny bit. {\color{red} maybe explain what that might be} 
+
+\subsection{Similar enough!}
+
+We still need to say something about (ii) and explain what it means for two sentences $p$ and $p'$ to be similar enough in meaning for communication. First, this question is plausibly framed as to lexically identical sentences to be similar in meaning. 
+
+A simple solution may just be a threshold $\epsilon$ on their distance, or equivalently a minimum value for their similarity. If the distance is below that threshold, we may ascribe a relation of \i{meaning resemblance} to the pair. The ascription reeks of arbitrage, however, why this exact value and not another? But that needn't be a bad thing, either. If we let $\epsilon$ small enough, one at least could be sure to have a sufficient condition for meaning similarity. Well, that is something. 
+
+Another direction entirely would involve belief dynamics, and is generally beyond the scope of this paper, since we haven't talked about synchronic behavior at all yet, here is a glimpse anyway: The difference in meaning can't have a disruptive effect of the listener's belief system. If a speaker utters a sentence $p$, the listener might take her utterance as testimony. Assume a difference in meaning significant enough such that upon hearing $p$, the listener comes to believe a sentence the speaker disbelieves (very coarsely speaking). The speaker's and listener's conceptual role of $p$ seem not similar enough. This would then constitute a necessary condition for meaning similarity.
+
+However this might be spelled out, it's isn't crucial to the account presented in this paper.
+
+\subsection{A Toy Example}
+\section{Conclusions, Objections, and Future Research}
+
+Symmetry(contexts help here) and Transitivity can be problematic, see Gardenfors 2004 p. 112 and Lewis (p. 51)
 
 Maybe problems with indexical expressions? Could be better to define the whole schose on possible worlds instead\ldots
 
 p and q can be on the same semantic location but be different sentences
+
+Problem from compositionality (see leitgeb)
+
+Linguistic Entities
+
+Conceptual Learning
+
 \section{Replace Meaning with Conceptual Role}
 \nocite{*}
 \printbibliography{}
